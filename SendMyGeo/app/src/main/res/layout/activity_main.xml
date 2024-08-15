@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="57dp"
         android:layout_gravity="center_vertical"
-        android:hint="Número de teléfono"
+        android:hint="Insert the phone number"
         android:inputType="phone" />
 
 
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
-        android:text="Actualizar y enviar"
+        android:text="Update and send"
         android:textSize="19sp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
@@ -69,7 +69,7 @@
         android:layout_marginTop="16dp"
         android:textColor="#999999"
 
-        android:text="Latitud: "
+        android:text="Latitude: "
         android:textSize="18sp" />
 
     <TextView
@@ -78,7 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
-        android:text="Longitud: "
+        android:text="Longitude: "
         android:textSize="18sp"
         android:textColor="#999999"
 
@@ -90,7 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
-        android:text="Altitud: "
+        android:text="Altitude: "
         android:textSize="18sp"
         android:textColor="#999999"
         />
@@ -101,7 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
-        android:text="Tiempo: "
+        android:text="Time: "
         android:textSize="20sp"
         android:textColor="#999999"
 

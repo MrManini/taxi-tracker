@@ -1,4 +1,8 @@
 //Package is used to declare the folder of the main activity inside the project
+
+//inside the onCreate method the fusedLocationClient is initialized and the callback and request are created
+
+
 package com.example.sendmygeo;
 //Necessary imports to android apps development
 import android.Manifest;
@@ -76,17 +80,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createLocationRequest() {
-        //It is specified to ask for a location request every 10 seconds to update it or even every 5 seconds if the user asks to
+        //It is specified to ask for a location request every second to update it or even every 0.5 seconds if the user asks to
         //Also, High accuracy is specified to obtain better results, there are other modes as battery saving but for now, precision ir prioritized
         locationRequest = LocationRequest.create();
-        locationRequest.setInterval(1000); // 10 segundos
+        locationRequest.setInterval(1000); // 1 segundos
         locationRequest.setFastestInterval(500); // 5 segundos
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         //low power reduces accuracy, as less battery power is invested in calculating the exact position
     }
 
     private void createLocationCallback() {
-        //Method exportes from documentation to create a callback and define current location as the las location obtained from all
+        //Method exports from documentation to create a callback and define current location as the las location obtained from all
         locationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
@@ -127,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 sendSMS();
             }
         } else {
-            Toast.makeText(MainActivity.this, "No se pudo obtener la ubicación", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "It was impossible to obtain the location", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -140,13 +144,13 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         String formattedTime = sdf.format(new Date(lastLocation.getTime()));
         //Update objects attributes to display latest known position
-        latitudeTextView.setText("Latitud: " + latitude);
-        longitudeTextView.setText("Longitud: " + longitude);
-        altitudeTextView.setText("Altitud: " + altitude + " metros");
-        timeTextView.setText("Tiempo: " + formattedTime);
+        latitudeTextView.setText("Latitude: " + latitude);
+        longitudeTextView.setText("Longitude: " + longitude);
+        altitudeTextView.setText("Altitude: " + altitude + " meters");
+        timeTextView.setText("Time: " + formattedTime);
         //Formatted and concatenated message to be sent through SMS
-        locationMessage = "La latitud es " + latitude + ". La longitud es " + longitude +
-                ". La altitud es " + altitude + " metros. El tiempo fue " + formattedTime + ".";
+        locationMessage = "The latitude is " + latitude + ". The longitude is " + longitude +
+                ". The altitude is " + altitude + " meters. The time was " + formattedTime + ".";
     }
 
     private void sendSMS() {
@@ -160,33 +164,33 @@ public class MainActivity extends AppCompatActivity {
                 //scAdress refers to the service center to be used, null means default
                 //sentIntent and deliveryIntent are used to send alerts in case the message is sent correctly
                 smsManager.sendTextMessage(phoneNumber, null, locationMessage, null, null);
-                Toast.makeText(this, "SMS enviado exitosamente", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "SMS sent correctly", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 //if an errors occurs of any type, print an alert and the error trace: line and cause
-                Toast.makeText(this, "Error al enviar SMS", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Error sending the SMS", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
         } else {
-            Toast.makeText(this, "Por favor, ingrese un número y obtenga los datos", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please, insert a phone number and obtain the data first", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        //CallBack executed everytime requestPermissions is calles (in upper methods, it is used to request permissions)
+        //CallBack executed everytime requestPermissions is called (in upper methods, it is used to request permissions)
         //  grantResults contains the status or response code
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMISSION_REQUEST_SEND_SMS) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 sendSMS();
             } else {
-                Toast.makeText(this, "Permiso denegado para enviar SMS", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "No permission to send SMS", Toast.LENGTH_SHORT).show();
             }
         } else if (requestCode == PERMISSION_REQUEST_LOCATION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 startLocationUpdates();
             } else {
-                Toast.makeText(this, "Permiso denegado para acceder a la ubicación", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "No permission to access location", Toast.LENGTH_SHORT).show();
             }
         }
     }
